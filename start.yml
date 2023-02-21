@@ -1,13 +1,13 @@
 ---
-- hosts: all
+- hosts: host
   become: True
   vars_prompt:
     - name: confirmation
       prompt: "Are you sure you want to reboot the system? Y/N: "
       private: false
-  roles:
-    - role: RedHat
-      when: ansible_os_family == "RedHat"
 
-    - role: Debian
-      when: ansible_os_family == "Debian"
+  roles:
+    - role: upgrade
+
+    - role: reboot
+      when: confirmation == "Y"

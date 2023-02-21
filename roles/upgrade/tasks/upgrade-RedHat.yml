@@ -1,0 +1,21 @@
+---
+- name: Install dnf
+  yum:
+    name: dnf
+    state: latest
+
+- name: Enable EPEL repository
+  dnf:
+    name: epel-release
+    state: latest
+
+- name: Upgrade all packages, excluding those indicated
+  yum:
+    name: "*"
+    state: latest
+    exclude:
+      - "{{ rh_pkgs }}*"
+
+- debug:
+    msg: "{{ item }} not upgraded"
+  with_items: "{{ rh_pkgs }}"

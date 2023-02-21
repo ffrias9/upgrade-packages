@@ -1,0 +1,30 @@
+---
+- name: Prevent packages from being upgraded
+  dpkg_selections:
+    name: "{{ item }}"
+    selection: hold
+    #  when: item != None
+  with_items:
+    - "{{ deb_pkgs }}"
+
+
+- name: Update cache
+  apt:
+    update_cache: yes
+
+- name: Upgrade all packages, excluding those indicated
+  apt:
+    name: "*"
+    state: latest
+
+- debug:
+    msg: "{{ item }} not upgraded"
+  with_items: "{{ deb_pkgs }}"
+
+- name: Allow packages to be upgraded again
+  dpkg_selections:
+    name: "{{ item }}"
+    selection: install
+    #  when: item != None
+  with_items:
+    - "{{ deb_pkgs }}"
