@@ -1,0 +1,47 @@
+---
+- name: Prevent packages from being upgraded
+  dpkg_selections:
+    name: "{{ item }}"
+    selection: hold
+  when: item != None
+  with_items:
+    - "{{ d-pkg1 }}"
+    - "{{ d-pkg2 }}"
+    - "{{ d-pkg3 }}"
+    - "{{ d-pkg4 }}"
+    - "{{ d-pkg5 }}"
+    - "{{ d-pkg6 }}"
+    - "{{ d-pkg7 }}"
+    - "{{ d-pkg8 }}"
+    - "{{ d-pkg9 }}"
+    - "{{ d-pkg10 }}"
+
+
+- name: Update cache
+  apt:
+    update_cache: yes
+
+- name: Upgrade all packages, excluding those indicated
+  apt:
+    name: "*"
+    state: latest
+
+- include_tasks: reboot.yml
+  when: confirmation == "Y"
+
+- name: Allow packages to be upgraded again
+  dpkg_selections:
+    name: "{{ item }}"
+    selection: install
+  when: item != None
+  with_items:
+    - "{{ d-pkg1 }}"
+    - "{{ d-pkg2 }}"
+    - "{{ d-pkg3 }}"
+    - "{{ d-pkg4 }}"
+    - "{{ d-pkg5 }}"
+    - "{{ d-pkg6 }}"
+    - "{{ d-pkg7 }}"
+    - "{{ d-pkg8 }}"
+    - "{{ d-pkg9 }}"
+    - "{{ d-pkg10 }}"
