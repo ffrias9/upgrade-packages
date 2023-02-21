@@ -1,2 +1,3 @@
-rh_pkgs: ""
-deb_pkgs: ""
+rh_pkgs: null
+deb_pkgs: null
+reboot: "N"

@@ -1,0 +1,9 @@
+---
+- name: Check OS family
+  debug:
+    msg: " "
+  failed_when: ansible_os_family not in "{{ item }}"
+  with_items:
+    - RedHat
+    - Ubuntu
+    - Debian

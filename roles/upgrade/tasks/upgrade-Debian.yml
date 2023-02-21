@@ -3,10 +3,8 @@
   dpkg_selections:
     name: "{{ item }}"
     selection: hold
-    #  when: item != None
   with_items:
     - "{{ deb_pkgs }}"
-
 
 - name: Update cache
   apt:
@@ -25,6 +23,5 @@
   dpkg_selections:
     name: "{{ item }}"
     selection: install
-    #  when: item != None
   with_items:
     - "{{ deb_pkgs }}"

@@ -1,13 +1,11 @@
 ---
 - hosts: host
   become: True
-  vars_prompt:
-    - name: confirmation
-      prompt: "Are you sure you want to reboot the system? Y/N: "
-      private: false
 
   roles:
+          #    - role: check_OS
+
     - role: upgrade
 
     - role: reboot
-      when: confirmation == "Y"
+      when: reboot in "Y, y, yes"
