@@ -11,7 +11,7 @@
 
 - name: Upgrade all packages, excluding those indicated
   yum:
-    name: ""
+    name: "*"
     state: latest
     exclude:
       - "{{ r-pkg1 }}*"
