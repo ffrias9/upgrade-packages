@@ -3,7 +3,7 @@
   become: True
 
   roles:
-          #    - role: check_OS
+    - role: check_OS
 
     - role: upgrade
 

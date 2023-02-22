@@ -19,3 +19,4 @@
 - debug:
     msg: "{{ item }} not upgraded"
   with_items: "{{ rh_pkgs }}"
+  when: rh_pkgs | default("null", false)
