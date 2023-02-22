@@ -1,22 +1,22 @@
 ---
-- name: Install dnf
+- name: RedHat - Install dnf
   yum:
     name: dnf
     state: latest
 
-- name: Enable EPEL repository
+- name: RedHat - Enable EPEL repository
   dnf:
     name: epel-release
     state: latest
 
-- name: Upgrade all packages, excluding those indicated
+- name: RedHat - Upgrade all packages, excluding those indicated
   yum:
     name: "*"
     state: latest
     exclude:
       - "{{ rh_pkgs }}*"
 
-- debug:
+- debug: RedHat
     msg: "{{ item }} not upgraded"
   with_items: "{{ rh_pkgs }}"
   when: rh_pkgs | default("null", false)

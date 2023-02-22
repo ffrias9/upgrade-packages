@@ -1,5 +1,5 @@
 ---
-- name: Prevent packages from being upgraded
+- name: Debian - Prevent packages from being upgraded
   dpkg_selections:
     name: "{{ item }}"
     selection: hold
@@ -7,21 +7,21 @@
     - "{{ deb_pkgs }}"
   when: deb_pkgs | default("null", false)
 
-- name: Update cache
+- name: Debian - Update cache
   apt:
     update_cache: yes
 
-- name: Upgrade all packages, excluding those indicated
+- name: Debian - Upgrade all packages, excluding those indicated
   apt:
     name: "*"
     state: latest
 
-- debug:
+- debug: Debian
     msg: "{{ item }} not upgraded"
   with_items: "{{ deb_pkgs }}"
   when: deb_pkgs | default("null", false)
 
-- name: Allow packages to be upgraded again
+- name: Debian - Allow packages to be upgraded again
   dpkg_selections:
     name: "{{ item }}"
     selection: install
