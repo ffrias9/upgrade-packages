@@ -12,7 +12,7 @@ el sistema como parámetro a la hora de ejecutar el playbppk como en el siguient
 
 	· -e reboot=[Y,y,yes]
 
-Si deseamos actualizar todos los paquetes menos python3 y nginx y que además se reinicie el sistema tras la actualización,
-deberemos ejecutar el playbook de la siguiente manera:
+Por ejemplo, si deseamos actualizar todos los paquetes menos python3 y nginx y que además se reinicie el sistema tras la
+actualización, deberemos ejecutar el playbook de la siguiente manera:
 
 	· ansible-playbook -i hosts -e '{"rh_pkgs": [python3,nginx]}' -e '{"deb_pkgs": [python3,nginx]}' -e reboot=y start.yml
