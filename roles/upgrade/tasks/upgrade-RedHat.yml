@@ -1,4 +1,9 @@
 ---
+- name: Create list
+  set_fact:
+    list: "{{ rh_pkgs.split(',') }}"
+  when: rh_pkgs | default("null", false)
+
 - name: RedHat - Install dnf
   yum:
     name: dnf
@@ -14,9 +19,9 @@
     name: "*"
     state: latest
     exclude:
-      - "{{ rh_pkgs }}*"
+      - "{{ list }}*"
 
-- debug: RedHat
+- debug:
     msg: "{{ item }} not upgraded"
-  with_items: "{{ rh_pkgs }}"
+  with_items: "{{ list }}"
   when: rh_pkgs | default("null", false)

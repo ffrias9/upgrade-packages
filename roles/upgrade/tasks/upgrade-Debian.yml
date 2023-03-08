@@ -1,10 +1,15 @@
 ---
+- name: Create list
+  set_fact:
+    list: "{{ deb_pkgs.split(',') }}"
+  when: deb_pkgs | default("null", false)
+
 - name: Debian - Prevent packages from being upgraded
   dpkg_selections:
     name: "{{ item }}"
     selection: hold
   with_items:
-    - "{{ deb_pkgs }}"
+    - "{{ list }}"
   when: deb_pkgs | default("null", false)
 
 - name: Debian - Update cache
@@ -16,9 +21,9 @@
     name: "*"
     state: latest
 
-- debug: Debian
+- debug:
     msg: "{{ item }} not upgraded"
-  with_items: "{{ deb_pkgs }}"
+  with_items: "{{ list }}"
   when: deb_pkgs | default("null", false)
 
 - name: Debian - Allow packages to be upgraded again
@@ -26,5 +31,5 @@
     name: "{{ item }}"
     selection: install
   with_items:
-    - "{{ deb_pkgs }}"
+    - "{{ list }}"
   when: deb_pkgs | default("null", false)
